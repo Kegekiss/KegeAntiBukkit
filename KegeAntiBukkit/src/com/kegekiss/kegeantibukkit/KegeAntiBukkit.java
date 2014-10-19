@@ -20,10 +20,10 @@ public class KegeAntiBukkit extends JavaPlugin implements Listener {
 		String message = event.getMessage().replaceAll("/", "");
 		String[] command = message.split(":");
 		if (event.getPlayer().isOp()) {
-			// Le joueur est OP
+			// Le joueur est OP, on ne fait rien!
 			return;
 		} else {
-			// On retourne la dernière fraction après tout les :
+			// On retourne la dernière fraction après tout les ":" .
 			event.setMessage("/" + command[command.length-1]);
 			this.getLogger().info("Commande altérée! Nouvelle commande : '" + event.getMessage() + "' !");
 		}
