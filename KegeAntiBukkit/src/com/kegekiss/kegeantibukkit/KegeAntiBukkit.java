@@ -18,15 +18,24 @@ public class KegeAntiBukkit extends JavaPlugin implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
 		String message = event.getMessage();
-		String[] command = message.split(":");
+		String[] args = message.split(" ");
+		String command = args[0];
+		String[] splitCommand = command.split(":");
 		if (event.getPlayer().isOp()) {
 			// Le joueur est OP, on ne fait rien!
 			return;
 		} else {
 			// On retourne la dernière fraction après tout les ":" .
-			String newMessage = command[command.length-1];
+			String newMessage = 
+					splitCommand[splitCommand.length-1];
 			if (!newMessage.startsWith("/")) {
-				newMessage = "/" + command[command.length-1];
+				newMessage = "/" + splitCommand[splitCommand.length-1];
+			}
+			for (String arg : args) {
+				if (arg.equals(args[0])) {
+					continue;
+				}
+				newMessage += " " + arg;
 			}
 			if (!newMessage.equals(message)) {
 				event.setMessage(newMessage);
